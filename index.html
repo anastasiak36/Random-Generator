@@ -1,0 +1,103 @@
+<html>
+    <head>
+    <title>Random Generator</title>
+        <script>
+            
+            function getVariable() {
+                var number = parseInt(document.getElementById("numOfItems").value);
+                var choices = document.getElementById("choices");
+                
+                for (var i = 0; i < number; i++) {
+                    var input = document.createElement("input");
+                    input.setAttribute("id", i);
+                    input.setAttribute("placeholder", "Choice: " + (i + 1));
+                    input.setAttribute("style", "position: relative; margin-right: 10px; margin-top: 10px;");
+                    choices.appendChild(input)
+                }
+                var button = document.createElement("input");
+                var buttonDiv = document.getElementById("buttonChoice");
+                button.setAttribute("type", "button");
+                button.setAttribute("id", "choiceButton");
+                button.setAttribute("value", "Generate Your Choice!");
+                button.setAttribute("onclick", "generateChoice()");
+                button.setAttribute("style", "background-color: LightSkyBlue; position:relative; text-align: left; margin-left: 325px");
+                buttonDiv.appendChild(button);
+            }
+            function createArray(number) {
+                var inputs = [];
+                for (var i = 0; i < number; i++) {
+                    var inputValue = document.getElementById(i).value;
+                    inputs.push(inputValue);
+                }
+                return inputs;
+            }
+            function createExitButton() {
+                exitButton = document.createElement("button");
+                exitButton.setAttribute("type", "button");
+                exitButton.setAttribute("style", "background-color: LightSkyBlue; position:relative; text-align: left; margin-left: 500px")
+                exitButton.innerHTML = '<a href = "https://docs.google.com/document/d/1lRX08KfooogJ5UWpGvHhUAu1y28BKMNt7fEHm4FpRlQ/edit"> Return Home</a>'
+                var exitButtonDiv = document.getElementById("buttonChoice");
+                exitButtonDiv.appendChild(exitButton);
+            }
+            var counter = 0;
+            function generateChoice() {
+                var number = parseInt(document.getElementById("numOfItems").value);
+                if (counter == 0) {
+                    inputs = createArray(number);
+                    createExitButton();
+                }
+                
+                if (counter < number) {
+                    var randomNumber = Math.floor(Math.random() * inputs.length);
+                    var randomInput = inputs[randomNumber];
+                    inputs.splice(randomNumber, 1);
+                    var choiceDiv = document.getElementById("randomChoice");
+                    heading = document.createElement("h4");
+                    heading.innerHTML = randomInput;
+                    choiceDiv.appendChild(heading);
+                }
+                else if (counter == number) {
+                    var choiceDiv = document.getElementById("randomChoice");
+                    heading = document.createElement("h2");
+                    heading.setAttribute("style", "color: blue; margin-top: 20px")
+                    heading.innerHTML = "That was the last choice! Return to the main page or start over!";
+                    choiceDiv.appendChild(heading);
+                    var end = document.createElement("img");
+                    end.setAttribute("src", "Images/theEnd.jpg");
+                    end.setAttribute("alt", "end");
+                    end.setAttribute("height", "300px");
+                    end.setAttribute("width", "600px");
+                    var endDiv = document.getElementById("endDivider");
+                    endDiv.appendChild(end);
+                }
+                counter += 1;
+                
+            }
+        
+    </script>
+    </head>
+        <body style = "background-color: lightcyan;margin-left: auto;margin-right: auto;width: 1450px;" >
+            <meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
+            <img src = "Images/blue_feather.png" alt = "Random" width = "100" height = "100" style = "position:relative;float: left;margin-left: 200px;">
+            <img src = "Images/blue_feather_reflected.png" alt = "feather" width = "100" height = "100" style = "position:relative; float: right;margin-right: 200px">
+            <img src = "Images/dice1.jpg" alt = "die1" width = "210" height = "230" style = "position:absolute; margin-top:200px; float: left; margin-left: -250px;">
+            <img src = "Images/dice2.jpg" alt = "die2" width = "210" height = "230" style = "position:absolute; margin-top:200px; float: right; margin-left: 900px">
+            <h1 style = "text-align: center;">Welcome to the Random Generator!</h1>
+            <form>
+                <div style = "text-align: center;">
+                    <label for="numOfItems" style = "position:relative;margin-top: 100px;"><font size = "+2">Number of choices:</font></label>
+                    <input type="number" id="numOfItems" style = "height:20px; width:175px; position:relative;margin-top: 50px;"><br><br>
+                    <input type = "button" id = "generateFillIns" value = "Submit!" style = "background-color: lightskyblue;" onclick = "getVariable()">
+                </div>
+                
+                <div id= "choices" style = "text-align:center;position:relative;margin-top: 100px;"></div>
+                <div id = "buttonChoice" style ="position:relative;margin-top: 10px">
+                </div>
+                <div id= "randomChoice" style = "text-align:center;position:relative;"></div>
+                <div id = "endDivider" style = "text-align:center; position: relative; margin-top: 20px"></div>
+                
+            </form>
+
+            
+        </body>
+</html>
